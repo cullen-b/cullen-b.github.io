@@ -1,0 +1,288 @@
+"In the Dining Hall" by Cullen Baker
+
+Release along with an interpreter, a website, and the source text.
+
+The Entrance is a room. "The host sits at the end of a long hallway. Your stomach aches as you move towards the host. You hate coming here but today it was your only option."
+
+the Dining Hall is a room. "The familiar chaos of the college dining hall surrounds you. The air is filled with the sound of clattering plates and a fire music playlist. Various food stations line the walls, each with their own unique line of hungry students. A large sandcastle sits in the middle of the room, vaguely themed around the 4th of July. It seems there was some sort of accident surrounding the castle as a human sized dent lays waste to the majority of the left side. You have heard many stories of this place, all of which seem to vanish from your brain upon entry..."
+
+The Secret Dining Hall is a room. "Behind an unassuming wooden door, tucked away in a quiet corner of campus, lies the Lunaris Hall, the secret dining oasis that feels more like a dream than reality. As you step inside, you’re greeted by a soft, golden glow emanating from ornate crystal chandeliers that dangle like stars from the high, vaulted ceiling. Rich mahogany tables are adorned with silk table runners and polished silverware, while lush velvet chairs in deep emerald green beckon you to sit and savor the experience.
+The air is filled with the tantalizing aroma of freshly baked bread, rich truffle oil, and sizzling rosemary steak. A grand buffet stretches the length of the room, laden with gourmet dishes that could rival any Michelin-starred restaurant—lobster bisque served in hand-carved bowls, delicate sushi rolls crafted with precision, and desserts that are miniature works of art, glistening under the soft light.
+In the center of the hall stands a live cooking station where chefs in crisp white coats prepare custom orders with theatrical flair, flames dancing in their pans. Soft classical music hums in the background, harmonizing with the gentle clinking of glasses and hushed laughter of an elite crowd who have discovered this hidden treasure.
+Every detail of Lunaris Hall whispers luxury, from the fresh bouquets of exotic flowers on every table to the golden accents etched into the walls. This is no ordinary dining hall—it’s a secret sanctuary for those who crave indulgence, elegance, and the finest cuisine. To dine here is to momentarily escape the mundane and step into a world of decadence."
+
+
+
+Chapter 1 - Swiping In
+
+Interrogative is a kind of value. 
+The interrogatives are what, which, how, where, eat, swipe, and can.
+
+Current question is an interrogative that varies.
+Found secret ending is a truth state that varies.
+Swipe Card is a truth state that varies.
+Questions asked is a number that varies. Questions asked is 0.
+
+After asking Host about something: 
+	increment questions asked;
+	respond to the question.
+After answering Host that something: 
+	increment questions asked;
+	respond to the question.
+
+After telling Host about something:
+	increment questions asked;
+	say "The host looks confused. 'I'm here to make sure you swipe, not to listen to stories. Swipe or get out of here'"
+
+Table of Normal Entrance Responses
+topic								question type	reply
+"card"						what			"'You can use your student id card to gain access to the dining hall.'"
+"swipe"						how				"'How do you swipe your card?' the host laughs, 'I thought people were going to be smart here...'"
+"bathroom"					where			"'The bathroom is outside the dining hall, hopefully I let you back in after you are done.'"
+"schillers"		how		"'You can pay with Schillers as long as you have them loaded onto your account.'"
+"second/seconds/more"		can			"'Ha! You want more food, funny request. We only give out one serving per order. You can come back later if you would like more.'"
+"secret"		where		"'I didn't realize you were a member of the secret dining hall group…' The host's eyes widen in recognition. They quickly usher you behind the wall to reveal an ornate hidden door.You've entered the secret dining hall![line break]"
+"sand"		eat		"'Disgusting request. Please don't ask again or I will call my student supervisor!'"
+"host"	eat		"'Um did you just try and eat me? Not cool. I'm gonna pretend like I didn't hear that'"
+"card" 	swipe	"Looks like your card worked, enjoy you meal..."
+
+Table of Angry Entrance Responses
+topic								question type	reply
+"card"						what			"'FOR THE LAST TIME, You can use your student id card to gain access to the dining hall.'"
+"swipe"						how				"'How do you swipe your card?' the host screams , 'I THOUGHT PEOPLE WERE GOING TO BE SMART HERE...'"
+"bathroom"					where			"'The bathroom is OUTSIDE the dining hall, I WILL NOT let you back in after you are done.'"
+"schillers"		how		"'You can pay with Schillers as long as you have them loaded onto your account. By the look of you I don't think you have any idea what aSchiller is.''"
+"second/seconds/more"		can			"'Ha! No.'"
+"secret"		where		"'I didn't realize you were a member of the secret dining hall group…' The host's eyes widen in recognition. They quickly usher you behind the wall to reveal an ornate hidden door.You've entered the secret dining hall![line break]"
+"sand"		eat		"'Disgusting request. Please don't ask again or I will call my student supervisor!'"
+"host"	eat		"'EXCUSE ME, I CAN'T BELEIEVE I JUST HEARD THAT. NEVER COME BACK HERE."
+"card" 	swipe	"Looks like your card worked, enjoy you meal..."
+
+The Host is a person in the Entrance. The description of the host is "A grumpy student worker stares blankly at their iPad."
+
+After reading a command:
+	if the player's command includes "[interrogative]":
+		now the current question is the interrogative understood.
+
+To respond to the question:
+	if questions asked is 3:
+		say "The host's eye twitches slightly. 'You sure do have a lot of questions today...'[paragraph break]";
+	if questions asked is 4:
+		say "The host grips the scanner. 'You're really testing my patience here...'[paragraph break]";
+	if questions asked is 5:
+		say "The host slams their hands on the counter. 'THAT'S IT! I've had enough of your endless questions! I thought people here were going to be smart.";
+	if questions asked is 6:
+		say "The host's face turns an alarming shade of red. 'Oh my god. Are you actually serious right now? MORE QUESTIONS?!'[paragraph break]";
+	if questions asked is 7:
+		say "The host starts stress-laughing. 'Haha... hahahaha... ' .'[paragraph break]";
+	if questions asked is 8:
+		say "The host throws the sscanner across the room. Then quickly jogs to pick it back up. 'Sorry about that'''[paragraph break]";
+	if questions asked is 9:
+		say "'Every question you ask kills another one of my brain cells. I can feel them dying.'[paragraph break]";
+	if questions asked is 10:
+		say "The host climbs onto the counter and assumes a fetal position.'[paragraph break]";
+	if questions asked > 10:
+		end the story finally saying "The host has transcended anger. They call over their supervisor who promptly kicks you out. You have to eat at Burton today which makes you sad.";
+	if questions asked <= 5:
+		repeat through the Table of Normal Entrance Responses:
+			if the topic understood includes topic entry:
+				if the current question is the question type entry:
+					say "[reply entry][paragraph break]";
+					if the topic understood includes "secret" and the current question is where:
+						now Found secret ending is true;
+					if the topic understood includes "card" and the current question is swipe:
+						now Swipe Card is true;
+					rule succeeds;
+	otherwise:
+		repeat through the Table of Angry Entrance Responses:
+			if the topic understood includes topic entry:
+				if the current question is the question type entry:
+					say "[reply entry][paragraph break]";
+					if the topic understood includes "secret" and the current question is where:
+						now Found secret ending is true;
+					if the topic understood includes "card" and the current question is swipe:
+						now Swipe Card is true;
+					rule succeeds;
+	say "The host shrugs. 'Sorry, I don't know about that. Come back later?".
+
+Every turn:
+	if found secret ending is true:
+		say "Congratulations! You've Entered the dining hall! Your stomach rumbles, it must be time to get some food.";
+		move the player to the Secret Dining Hall;
+		now found secret ending is false;
+	if Swipe Card is true:
+		say "Welcome to LDC, I hope you can find some protein.";
+		move the player to the Dining Hall;
+		now Swipe Card is false.
+		
+
+Understand "ask [someone] [text]" as asking it about.
+
+
+
+Chapter 2 - Ordering Food
+
+The Server is a person in the Dining Hall. The description of the server is "A student worker in a slightly stained uniform and a name tag that might say 'Chris' (or possibly 'Chloris' - it's hard to tell with the smudge)."
+
+
+Current order is an Interrogative that varies.
+Found secret ending is a truth state that varies.
+Orders asked is a number that varies. Orders asked is 0.
+
+After asking Server about something: 
+	increment orders asked;
+	respond to the order.
+After answering Server that something: 
+	increment orders asked;
+	respond to the order.
+
+After telling Server about something:
+	increment orders asked;
+	say "The server looks confused. 'I'm here to take your order, not to listen to stories. Place your order or get out of here'"
+
+Table of Normal Dining Responses
+topic								order type	reply
+"pizza/pizzas"						what			"'Our pizza today comes in three varieties,' the server says while gesturing to the counter. 'We've got cheese, pepperoni, and a orderable attempt at BBQ chicken.'"
+"pizza/pizzas"						how				"'The pizza is made fresh every few hours,' the server explains. 'Though fresh is a relative term when you're feeding hundreds of students.'"
+"burger/burgers"					what			"'The burger station has beef, turkey, and veggie options,' says the server. 'Each comes with your choice of cheese and toppings, assuming we haven't run out.'"
+"burger/burgers"					how				"'Our burgers are grilled to order,' the server says proudly. 'Well, to medium-well order. Health code and all that.'"
+"salad/salads"						where			"The server points to the salad bar. 'It's right over there, past the soup station. Just try not to think about how many hands have touched those tongs.'"
+"salad/salads"						what			"'The salad bar has your usual suspects,' says the server. 'Lettuce, tomatoes, cucumbers, and those mysterious chickpeas that nobody ever seems to take.'"
+"drink/drinks/beverage/beverages"	where			"'The drink stations are along the back wall,' the server points. 'And yes, the orange juice machine is probably broken again.'"
+"drink/drinks/beverage/beverages"	what			"'We've got soda fountains, juice machines, and water,' lists the server. 'The coffee is... well, it's technically coffee.'"
+"dessert/desserts/sweets"			what			"'Today's desserts include cookies, brownies, and something the kitchen claims is cake,' the server says with a slight grimace."
+"dessert/desserts/sweets"			where			"'Desserts are at the end of the line,' says the server. 'Right where they can tempt you after you've filled up on everything else.'"
+"meal/swipe/card"					how				"'Just swipe your meal card at the entrance,' the server explains. 'And pray you have enough meal points left.'"
+"meal/swipe/card"					can				"'You can use your meal swipe once per meal period,' the server recites. 'Unless you've got extra points from that time you never left your dorm during midterms.'"
+"hours/time/open"					what			"'We're open for breakfast from 7-10, lunch 11-2, and dinner 5-8,' the server states. 'But show up 30 minutes before closing and all bets are off.'"
+"special/specials"					what			"'Today's special is...' the server checks a smudged note, 'something called Mystery Monday Surprise. I'd stick with the pizza if I were you.'"
+"second/seconds/more"		can			"'Ha! You want more, funny request. We only give out one serving per order. You can come back later if you would like more.'"
+"sand/sands/sandy"		where		"'I didn't realize you were a member of the secret dining hall group…' The server's eyes widen in recognition. They quickly usher you behind the grill to reveal an ornate hidden door. You've discovered the secret menu![line break]"
+"sand"		eat		"'Disgusting request. Please don't come back to this station or I will call my student supervisor!'"
+"server"	eat		"'Um did you just try and eat me? Not cool. I'm gonna pretend like I didn't hear that'"
+
+Table of Angry Dining Responses
+topic								order type	reply
+"pizza/pizzas"						what			"'PIZZA?! It's the same three flavors we've had ALL SEMESTER! Just pick one and GO!'"
+"pizza/pizzas"						how				"'How? HOW?! We throw it in an oven and pray! Is that what you wanted to hear?!'"
+"burger/burgers"					what			"The server just points aggressively at the menu board, hands shaking with rage."
+"burger/burgers"					how				"'We cook them until they're dead! TWICE! Now please stop asking me orders!'"
+"salad/salads"						where			"'IT'S THE GIANT BAR OF VEGETABLES RIGHT IN FRONT OF YOUR FACE!'"
+"salad/salads"						what			"'Lettuce. It's just lettuce. And some other green things I couldn't care less about right now.'"
+"drink/drinks/beverage/beverages"	where			"'If you can't find the drink station, maybe college isn't for you,' the server snarls."
+"drink/drinks/beverage/beverages"	what			"'Water. We have water. Everything else is broken. Happy now?'"
+"dessert/desserts/sweets"			what			"'Sugar. Various forms of sugar. Now please leave me alone.'"
+"dessert/desserts/sweets"			where			"'Follow the trail of dropped sprinkles. I'm begging you to stop asking me orders.'"
+"meal/swipe/card"					how				"The server mimics a swiping motion with such violence that their name tag falls off."
+"meal/swipe/card"					can				"'NO! No more meal swipes! The card reader is possessed by demons anyway!'"
+"hours/time/open"					what			"'We're open until I lose my last shred of sanity, which is RIGHT ABOUT NOW!'"
+"special/specials"					what			"'Today's special is my RAPIDLY DETERIORATING PATIENCE!'"
+"second/seconds/more"		can			"The server laughs maniacally. 'MORE? You want MORE?!'"
+"sand/sands/sandy"		where		"'I didn't realize you were a member of the secret dining hall group…' The server's eyes widen in recognition. Despite their rage, they quickly usher you behind the grill to reveal an ornate hidden door. You've discovered the secret menu![line break]"
+"sand"		eat		"'OH SURE, EAT SAND! WHY NOT?! WHILE YOU'RE AT IT, WHY DON'T YOU EAT MY PSYCHOLOGY HOMEWORK TOO?!'"
+"server"	eat		"'OHH EAT ME HOW FUNNY. NO. YOU CANT EAT ME. STOP. BYE. JESUS SAVE THIS SCHOOL'"
+
+After reading a command:
+	if the player's command includes "[interrogative]":
+		now the current order is the interrogative understood.
+
+To respond to the order:
+	if orders asked is 3:
+		say "The server's eye twitches slightly. 'You sure do have a lot of orders today...'[paragraph break]";
+	if orders asked is 4:
+		say "The server grips their serving spoon tightly. 'You're really testing my patience here...'[paragraph break]";
+	if orders asked is 5:
+		say "The server slams their hands on the counter. 'THAT'S IT! I've had enough of your endless orders! I've been here since 6 AM, I have THREE papers due tomorrow, and you're the fifteenth person to ask me a stupid order. I thought people here were going to be smart.";
+	if orders asked is 6:
+		say "The server's face turns an alarming shade of red. 'Oh my god. Are you actually serious right now? MORE QUESTIONS?!'[paragraph break]";
+	if orders asked is 7:
+		say "The server starts stress-laughing. 'Haha... hahahaha... You know what's funny? I haven't slept in 48 hours and you're still. asking. orders.'[paragraph break]";
+	if orders asked is 8:
+		say "The server throws their name tag across the room. 'I QUIT! I QUIT RIGHT NOW! Except I can't because I need this job to pay for my textbooks!'[paragraph break]";
+	if orders asked is 9:
+		say "The server is now stress-eating french fries between responses. 'Every order you ask kills another one of my brain cells. I can feel them dying.'[paragraph break]";
+	if orders asked is 10:
+		say "The server climbs onto the counter and assumes a fetal position. 'This is fine. Everything is fine. I'm not having a breakdown in the middle of my shift. This is just a bad dream...'[paragraph break]";
+	if orders asked > 10:
+		end the story finally saying "The server has transcended anger and entered a zen-like state of pure rage. Their eye begins twitching morse code. Drool begins to spill out of the servers mouth and suddenly the server changes color to blend in with their serving station. You tap them on the cheek but they remain silent. Eventually you leave the dining hall and eat ramen alone in your dorm room. Maybe next time you will succeed in ordering.";
+	if orders asked <= 5:
+		repeat through the Table of Normal Dining Responses:
+			if the topic understood includes topic entry:
+				if the current order is the order type entry:
+					say "[reply entry][paragraph break]";
+					if the topic understood includes "sand" and the current order is where:
+						now found secret ending is true;
+					rule succeeds;
+	otherwise:
+		repeat through the Table of Angry Dining Responses:
+			if the topic understood includes topic entry:
+				if the current order is the order type entry:
+					say "[reply entry][paragraph break]";
+					if the topic understood includes "sand" and the current order is where:
+						now found secret ending is true;
+					rule succeeds;
+	say "The server shrugs. 'Sorry, I don't know about that. Maybe check the menu board?'".
+
+Every turn:
+	if found secret ending is true:
+		say "Congratulations! You've discovered the secret dining hall room!";
+		move the player to the Secret Dining Hall;
+
+
+Chapter 3 - The Secret Room
+
+The Secret Chef is a person in the Secret Dining Hall. "A mysterious figure in pristine chef's whites moves gracefully through the space, occasionally stopping to create perfectly plated dishes with theatrical flair."
+
+The marble counter is a supporter in the Secret Dining Hall. The marble counter is scenery. "An elegant marble counter stretches along one wall, its surface gleaming under the crystal chandeliers."
+
+The secret menu is on the marble counter. "A gilded menu card rests on the marble surface, promising culinary delights beyond imagination."
+
+Some crystal chandeliers are scenery in the Secret Dining Hall. "The chandeliers cast a warm, sophisticated glow throughout the room."
+
+Instead of examining the secret menu:
+	say "The menu appears to be written in shimmering golden ink:[line break]";
+	say "- Clouds of Dragon's Breath (a mysterious dessert that makes you breathe actual vapor)[line break]";
+	say "- The Philosopher's Steak (changes flavor with each bite)[line break]";
+	say "- Levitating Lobster Bisque (the soup floats above its bowl)[line break]";
+	say "- Memory Lane Macarons (taste like your favorite childhood dessert)[line break]";
+	say "- Starlight Sushi (glows with an inner light)".
+
+Understand "eat [text]" as dining. Dining is an action applying to one topic.
+
+The magical dish is a thing.
+
+Instead of dining:
+	if the player is in the Secret Dining Hall:
+		now the player has the magical dish;
+		if the topic understood includes "dragon":
+			say "You try the Dragon's Breath dessert. As you eat the frozen crystals, vapor streams from your nose and mouth, making you feel like a mythical creature. Several other diners applaud.";
+		else if the topic understood includes "steak":
+			say "Each bite of the Philosopher's Steak tastes completely different - first like a perfect medium-rare ribeye, then like wagyu beef, then like something otherworldly that you can't quite identify. It's the most interesting thing you've ever eaten.";
+		else if the topic understood includes "lobster":
+			say "The bisque floats up from its bowl in perfect spheres. As each one reaches your mouth, it bursts with rich, creamy flavor. Somehow, none of it spills.";
+		else if the topic understood includes "macaron":
+			say "The macaron tastes exactly like the birthday cake your grandmother used to make - a flavor you hadn't even realized you remembered. You feel a wave of happy nostalgia wash over you.";
+		else if the topic understood includes "sushi":
+			say "The sushi rolls glow with a soft blue light. They taste like the ocean at midnight - somehow both familiar and mysterious. The rice sparkles faintly as you chew.";
+		else:
+			say "The Secret Chef creates a stunning dish based on your request. Whatever it is, it's the best version of that food you've ever tasted.";
+	else:
+		say "The regular dining hall food is... well, it's food. But nothing special happens when you eat it."
+
+Instead of examining the Secret Chef:
+	say "The chef notices your gaze and gives you a knowing wink. Their movements are almost hypnotic as they prepare dishes with impossible grace. You could swear they're floating slightly above the ground."
+
+Instead of asking the Secret Chef about something:
+	say "The Secret Chef simply smiles mysteriously and continues their graceful cooking. Sometimes, you think, the best meals are enjoyed in comfortable silence."
+
+Every turn:
+	if the player is in the Secret Dining Hall and a random chance of 1 in 4 succeeds:
+		say "[one of]A student nearby gasps as their spoon starts stirring their soup by itself.[or]The chandeliers dim slightly and then brighten in time with the soft music.[or]A plate of sushi rolls past, floating serenely through the air.[or]The Secret Chef creates a dish that briefly forms a miniature fireworks display above the plate.[or]A gentle chime sounds as someone's Memory Lane Macaron helps them rediscover a long-forgotten happy memory.[at random]";
+	if the player has the magical dish and a random chance of 1 in 3 succeeds:
+		end the story saying "As you finish your magical dish, the Secret Chef pauses and turns to you. 'Congratulations,' they say softly, their voice carrying the weight of an ancient secret. 'You have tasted the essence of culinary perfection. Few are granted this privilege.'[paragraph break]The chandeliers glow brighter, the air is filled with the scent of all your favorite foods, and the room slowly begins to fade into a shimmering golden light. You feel a sense of fulfillment unlike anything you've ever known.[paragraph break]When you open your eyes, you're back in your dorm room, a small golden trinket resting on your desk. Inscribed on it are the words: 'You are always welcome at the Secret Dining Hall.'";
+	if the player has the magical dish for three turns:
+		end the story saying "After savoring the magical dish, you begin to notice strange changes in your surroundings. The Secret Dining Hall begins to shimmer and fade. The Secret Chef approaches you, offering a faint smile. 'You've experienced something special, but now it's time to return to the real world.'[paragraph break]In a swirl of light and flavor, you find yourself back in the ordinary dining hall. The memories of the Secret Dining Hall linger, along with a faint taste of the best food you've ever had. Was it real, or just a vivid dream? Either way, you'll never forget it."
+
+
+
+
